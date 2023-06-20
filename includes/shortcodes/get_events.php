@@ -23,8 +23,8 @@ function get_events($atts = []) {
     );
     ?>
 
-    <div class="section whats-on">
-        <div class="row whats-on__row">
+    <div class="section whats-on filtergrid">
+        <div class="row whats-on__row width-100">
             <?php
             if ( $the_query->have_posts() ):
                 while ( $the_query->have_posts() ) :
@@ -36,38 +36,31 @@ function get_events($atts = []) {
                     $events_featured_image = get_field( 'featured_image', $id ); ?>
 
                     <h4 class="whats-on__heading">
-                        <?php echo get_the_title(); ?>
+                        What's on
                     </h4>
 
-                    <div class="whats-on__items">
-                        <?php
-                        if ( have_rows ( 'events', $id ) ):
-                            while ( have_rows ( 'events', $id ) ):
-                                the_row();
-                                // Load subfields
-                                $event_image = get_sub_field( 'event_image', $id );
-                                $event_title = get_sub_field( 'event_title', $id );
-                                $event_description = get_sub_field( 'event_description', $id ); ?>
+                    <div class="dp-dfg-container dp-dfg-layout-grid">
+                        <div class="dp-dfg-items">
+                            <article class="dp-dfg-item">
+                                <figure class="dp-dfg-image entry-thumb">
+                                    <a href="<?php the_permalink(); ?>" class="dp-dfg-image-link">
+                                        <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="" class="dp-dfg-featured-image" />
+                                    </a>
+                                </figure>
 
-                                <div class="whats-on__item">
-                                    <img src="<?php echo $event_image['url']; ?>" alt="" class="whats-on__item__image" />
-
-                                    <?php if ( !empty  ($event_title ) || !empty ( $event_description ) ) : ?>
-                                        <div class="whats-on__item__content">
-                                            <p class="whats-on__item__heading">
-                                                <?php echo $event_title; ?>
-                                            </p>
-
-                                            <p class="whats-on__item__description">
-                                                <?php echo $event_description; ?>
-                                            </p>
-                                        </div>
-                                    <?php endif; ?>
+                                <div class="dp-dfg-header entry-header">
+                                    <h2 class="entry-title">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php the_title(); ?>
+                                        </a>
+                                    </h2>
                                 </div>
 
-                            <?php
-                            endwhile;
-                        endif; ?>
+                                <div class="dp-dfg-content entry-summary">
+                                    <?php echo the_excerpt(); ?>
+                                </div>
+                            </article>
+                        </div>
                     </div>
 
                 <?php
